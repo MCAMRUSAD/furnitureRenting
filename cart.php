@@ -1,6 +1,4 @@
-<?php
-    session_start();
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,6 +79,7 @@
 <!-- main content -->
 <div class="container mt-5  pt-5">
         <h1 class="mb-4 mt-3">Shopping Cart</h1>
+        
         <div class="row">
             <!-- Left side: Product list -->
             <div class="col-md-8">

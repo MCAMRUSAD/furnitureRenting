@@ -20,10 +20,7 @@ if ($conn->connect_error) {
 $status="";
 if (isset($_POST['code']) && $_POST['code']!=""){
 $code = $_POST['code'];
-$result = mysqli_query(
-$con,
-"SELECT * FROM `products` WHERE `code`='$code'"
-);
+$result = mysqli_query($conn,"SELECT * FROM products WHERE code='$code'");
 $row = mysqli_fetch_assoc($result);
 $name = $row['name'];
 $code = $row['code'];
@@ -61,11 +58,6 @@ if(empty($_SESSION["shopping_cart"])) {
 }
 ?>
 
-<?php
-if(!empty($_SESSION["shopping_cart"])) {
-$cart_count = count(array_keys($_SESSION["shopping_cart"])); }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,7 +90,7 @@ $cart_count = count(array_keys($_SESSION["shopping_cart"])); }
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a href="index.php" class="nav-link px-2 text-white">Home</a></li>
-                        <li class="nav-item"><a href="products.php" class="nav-link px-2 text-secondary">Products</a></li>
+                        <li class="nav-item"><a href="products2.php" class="nav-link px-2 text-secondary">Products</a></li>
                         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
                         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
                         <li class="nav-item"><a href="about.php" class="nav-link px-2 text-white">About</a></li>
@@ -131,11 +123,12 @@ $cart_count = count(array_keys($_SESSION["shopping_cart"])); }
 
                         <?php  }  ?>
 
-
-                        <a href="cart.php"><button type="button" class="btn btn-primary position-relative">Cart
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+0<span class="visually-hidden">unread messages</span>
+                       
+                        <a href="cart2.php"><button type="button" class="btn btn-primary position-relative">Cart
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+2 <span class="visually-hidden">unread messages</span>
                             </span>
                         </button></a>
+                        
                     </div>
                 </div>
             </nav>
@@ -225,7 +218,7 @@ $cart_count = count(array_keys($_SESSION["shopping_cart"])); }
                                 <p class="card-text">Category: ${product.category}</p>
                                 <p class="card-text"><strong>Rental Price:</strong> $${product.price}/month</p>
                                 <form class="inline-block">
-                                <input type='hidden' name='code' value="${product.code}" />
+                                <input type='hidden' name='code' value='${product.code}' />
                                 <a href="product1.php"><button class="btn btn-primary mt-auto me-4"  >Open Listing</button></a>
                                 
                                 <a href="cart.php"><button type="submit"  class="btn btn-primary mt-auto my-auto"  >Add To Cart</button></a>

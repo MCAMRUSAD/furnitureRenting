@@ -2,6 +2,62 @@
     session_start();
 ?>
 
+<?php
+// Database connection details
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "registration_db";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$status="";
+if (isset($_POST['code']) && $_POST['code']!=""){
+$code = $_POST['code'];
+$result = mysqli_query($conn,"SELECT * FROM products WHERE code='$code'");
+$row = mysqli_fetch_assoc($result);
+$name = $row['name'];
+$code = $row['code'];
+$price = $row['price'];
+$category = $row['category'];
+$image = $row['image'];
+
+$cartArray = array(
+	$code=>array(
+	'name'=>$name,
+	'code'=>$code,
+	'price'=>$price,
+    'category'=>$category,
+	'quantity'=>1,
+	'image'=>$image)
+);
+
+if(empty($_SESSION["shopping_cart"])) {
+    $_SESSION["shopping_cart"] = $cartArray;
+    $status = "<div class='box'>Product is added to your cart!</div>";
+}else{
+    $array_keys = array_keys($_SESSION["shopping_cart"]);
+    if(in_array($code,$array_keys)) {
+	$status = "<div class='box' style='color:red;'>
+	Product is already added to your cart!</div>";	
+    } else {
+    $_SESSION["shopping_cart"] = array_merge(
+    $_SESSION["shopping_cart"],
+    $cartArray
+    );
+    $status = "<div class='box'>Product is added to your cart!</div>";
+	}
+
+	}
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,11 +123,12 @@
 
                         <?php  }  ?>
 
-
+                       
                         <a href="cart.php"><button type="button" class="btn btn-primary position-relative">Cart
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+0<span class="visually-hidden">unread messages</span>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+2 <span class="visually-hidden">unread messages</span>
                             </span>
                         </button></a>
+                        
                     </div>
                 </div>
             </nav>
@@ -119,19 +176,34 @@
     </main>
 
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
         // Sample product data
-        const products = [
-            { id: 1, name: "Modern Sofa", price: 50, category: "living-room", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
-            { id: 2, name: "Dining Table Set", price: 75, category: "dining-room", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
-            { id: 3, name: "Office Desk", price: 40, category: "office", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
-            { id: 4, name: "Queen Size Bed", price: 60, category: "bedroom", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
-            { id: 5, name: "Bookshelf", price: 30, category: "living-room", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
-            { id: 6, name: "Wardrobe", price: 55, category: "bedroom", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
-            { id: 7, name: "Coffee Table", price: 25, category: "living-room", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
-            { id: 8, name: "Office Chair", price: 35, category: "office", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
-        ];
+
+            const products = [
+                <?php
+
+            $result = mysqli_query($conn,"SELECT * FROM products");
+            while($row = mysqli_fetch_assoc($result)){ ?>
+
+                { id: <?php echo $row['id'] ?>, name: "<?php echo $row['name'] ?>", code: <?php echo $row['code'] ?>, price: <?php echo $row['price'] ?>, category: "<?php echo $row['category'] ?>", image: "<?php echo $row['image'] ?>" }, 
+                
+                <?php } ?>
+
+                
+            ];
+
+        // const products = [
+        //     { id: 1, name: "Modern Sofa", price: 50, category: "living-room", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
+        //     { id: 2, name: "Dining Table Set", price: 75, category: "dining-room", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
+        //     { id: 3, name: "Office Desk", price: 40, category: "office", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
+        //     { id: 4, name: "Queen Size Bed", price: 60, category: "bedroom", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
+        //     { id: 5, name: "Bookshelf", price: 30, category: "living-room", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
+        //     { id: 6, name: "Wardrobe", price: 55, category: "bedroom", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
+        //     { id: 7, name: "Coffee Table", price: 25, category: "living-room", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
+        //     { id: 8, name: "Office Chair", price: 35, category: "office", image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnVybml0dXJlfGVufDB8fDB8fHww" },
+        // ];
 
         function renderProducts(productsToRender) {
             const productList = document.getElementById('productList');
@@ -145,7 +217,13 @@
                                 <h5 class="card-title">${product.name}</h5>
                                 <p class="card-text">Category: ${product.category}</p>
                                 <p class="card-text"><strong>Rental Price:</strong> $${product.price}/month</p>
-                                <a href="product1.php"><button class="btn btn-primary mt-auto"  >Open Listing</button></a>
+                                <form class="inline-block">
+                                <input type='hidden' name='code' value='${product.code}' />
+                                <a href="product1.php"><button class="btn btn-primary mt-auto me-4"  >Open Listing</button></a>
+                                
+                                <a href="cart.php"><button type="submit"  class="btn btn-primary mt-auto my-auto"  >Add To Cart</button></a>
+                                
+                                </form>
                             </div>
                         </div>
                     </div>
