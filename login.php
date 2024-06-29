@@ -45,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($pass, $row['password'])) {
             $_SESSION['user_id'] = 1; // Example user ID
             $_SESSION['username'] = $row['username'];
+            $_SESSION['email'] = $row['email'];
             header("Location: index.php"); // Redirect to the home page
             exit();
         } else {
@@ -120,10 +121,10 @@ $conn->close();
                         <?php  }  ?>
 
 
-                        <button type="button" class="btn btn-primary position-relative">Cart
+                        <a href="cart.php"><button type="button" class="btn btn-primary position-relative">Cart
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+0<span class="visually-hidden">unread messages</span>
                             </span>
-                        </button>
+                        </button></a>
                     </div>
                 </div>
             </nav>

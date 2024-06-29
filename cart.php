@@ -2,13 +2,12 @@
     session_start();
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Furniture Rental Catalog</title>
+    <title>Document</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -19,9 +18,7 @@
 </head>
 <body>
     
-    <!-- this is header -->
-
-    <header class="p-3 fixed-top text-bg-dark">
+<header class="p-3 fixed-top text-bg-dark">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <a href="/" class="navbar-brand d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -34,11 +31,11 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a href="index.php" class="nav-link px-2 text-white">Home</a></li>
+                        <li class="nav-item"><a href="index.php" class="nav-link px-2 text-secondary">Home</a></li>
                         <li class="nav-item"><a href="products.php" class="nav-link px-2 text-white">Products</a></li>
                         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
                         <li class="nav-item"><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                        <li class="nav-item"><a href="about.php" class="nav-link px-2 text-secondary">About</a></li>
+                        <li class="nav-item"><a href="about.php" class="nav-link px-2 text-white">About</a></li>
                     </ul>
 
                     <form class="d-flex mb-3 mb-lg-0 me-lg-3" role="search">
@@ -80,83 +77,84 @@
     </header>
 
 
-      <!-- Main Content -->
-      <main class="container mt-5 pt-5">
-        <section class="row mb-5 mt-5">
-            <div class="col-md-6">
-                <h1 class="display-4 mb-3">About Ahmedabad Furniture Rental</h1>
-                <p class="lead">Transforming spaces with style and convenience since 2010.</p>
-                <p>Located in the heart of Ahmedabad, Gujarat, we've been serving our community with high-quality furniture rentals for over a decade. Our passion for design and commitment to customer satisfaction have made us a trusted name in the industry.</p>
-            </div>
-            <div class="col-md-6">
-                <img src="https://media.istockphoto.com/id/1350859272/photo/luxury-furniture-goods.jpg?s=612x612&w=0&k=20&c=XOqf7YV73QzWE2civf53imMOqh96-dtf6okicqszRWQ=" alt="Our showroom" class="img-fluid rounded">
-            </div>
-        </section>
 
-        <section class="row mb-5">
-            <div class="col-12">
-                <h2 class="text-center mb-4">Our Values</h2>
-                <div class="row text-center">
-                    <div class="col-md-4 mb-3">
-                        <i class="fas fa-star fa-3x mb-3 text-primary"></i>
-                        <h3>Quality</h3>
-                        <p>We offer only the finest furniture pieces, ensuring durability and style.</p>
+<!-- main content -->
+<div class="container mt-5  pt-5">
+        <h1 class="mb-4 mt-3">Shopping Cart</h1>
+        <div class="row">
+            <!-- Left side: Product list -->
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="/api/placeholder/200/200" class="img-fluid rounded-start" alt="Product 1">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 1</h5>
+                                <p class="card-text">Description of Product 1</p>
+                                <p class="card-text"><strong>Price: $19.99</strong></p>
+                                <div class="d-flex align-items-center">
+                                    <label for="quantity1" class="me-2">Quantity:</label>
+                                    <input type="number" id="quantity1" class="form-control w-25" value="1" min="1">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <i class="fas fa-handshake fa-3x mb-3 text-primary"></i>
-                        <h3>Customer Service</h3>
-                        <p>Our team is dedicated to providing exceptional service at every step.</p>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <i class="fas fa-leaf fa-3x mb-3 text-primary"></i>
-                        <h3>Sustainability</h3>
-                        <p>We're committed to eco-friendly practices in our operations.</p>
+                </div>
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="/api/placeholder/200/200" class="img-fluid rounded-start" alt="Product 2">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 2</h5>
+                                <p class="card-text">Description of Product 2</p>
+                                <p class="card-text"><strong>Price: $29.99</strong></p>
+                                <div class="d-flex align-items-center">
+                                    <label for="quantity2" class="me-2">Quantity:</label>
+                                    <input type="number" id="quantity2" class="form-control w-25" value="1" min="1">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section class="row mb-5">
-            <div class="col-12">
-                <h2 class="text-center mb-4">Why Choose Us?</h2>
-                <ul class="list-group">
-                    <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Wide range of high-quality furniture</li>
-                    <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Flexible rental terms</li>
-                    <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Prompt delivery and setup</li>
-                    <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Excellent customer support</li>
-                    <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Competitive pricing</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="row mb-5">
-            <div class="col-12">
-                <h2 class="text-center mb-4">Our Team</h2>
-                <div class="row">
-                    <div class="col-md-4 text-center mb-3">
-                        <img src="/api/placeholder/150/150" alt="Team Member 1" class="rounded-circle mb-3">
-                        <h4>Amit Patel</h4>
-                        <p class="text-muted">Founder & CEO</p>
-                    </div>
-                    <div class="col-md-4 text-center mb-3">
-                        <img src="/api/placeholder/150/150" alt="Team Member 2" class="rounded-circle mb-3">
-                        <h4>Priya Sharma</h4>
-                        <p class="text-muted">Design Consultant</p>
-                    </div>
-                    <div class="col-md-4 text-center mb-3">
-                        <img src="/api/placeholder/150/150" alt="Team Member 3" class="rounded-circle mb-3">
-                        <h4>Rajesh Mehta</h4>
-                        <p class="text-muted">Customer Relations Manager</p>
+            
+            <!-- Right side: Order summary -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Order Summary</h5>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Subtotal</span>
+                                <strong>$49.98</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Shipping</span>
+                                <strong>$5.00</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Tax</span>
+                                <strong>$4.50</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Total</span>
+                                <strong>$59.48</strong>
+                            </li>
+                        </ul>
+                        <a href="checkout.php"><button class="btn btn-primary w-100">Proceed to Checkout</button></a>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
+  <!-- this is footer -->
 
-     <!-- this is footer -->
-
-     <footer class="footer py-5">
+  <footer class="footer py-5">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-4 mb-4">
@@ -205,6 +203,8 @@
         </div>
     </footer>
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
