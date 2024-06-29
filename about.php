@@ -1,3 +1,8 @@
+<?php
+    session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,8 +45,30 @@
                         <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
                     </form>
 
-                    <div class="text-end">
-                    <a href="login.html"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
+                    <div class="text-end " style="display: flex;" >
+
+                        <?php 
+                        if (isset($_SESSION['user_id'])) {  ?>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <?php echo $_SESSION['username']; ?>
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="#">My Account</a></li>
+                                  <li><a class="dropdown-item" href="#">Whishlist</a></li>
+                                  <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                                </ul>
+                              </div>
+                        <?php
+                        }
+                        else {
+                        ?>
+
+                        <a href="login.php"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
+
+                        <?php  }  ?>
+
+
                         <button type="button" class="btn btn-primary position-relative">Cart
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+0<span class="visually-hidden">unread messages</span>
                             </span>
